@@ -1,14 +1,22 @@
 import Card from "../card/Card";
+import type { Task } from "../data/types";
 import "./Column.css";
 
-function Column() {
+interface ColumnProps {
+  title: string;
+  instanceTasks: Task[];
+}
+
+function Column({ title, instanceTasks }: ColumnProps) {
   return (
     <>
       <div className="column">
-        <Card
-          title="I'm a card and my job is to show information in an easy to parse way"
-          imageUrl="/driver.png"
-        />
+        <p className="column_title"> {title} </p>
+        {instanceTasks
+          ? instanceTasks.map((instance) => {
+              return <Card info={instance} key={instance.id} />;
+            })
+          : ""}
       </div>
     </>
   );

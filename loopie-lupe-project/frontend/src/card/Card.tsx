@@ -1,19 +1,19 @@
+import type { Task } from "../data/types";
 import "./Card.css";
 
 interface CardProp {
-  title: String;
-  imageUrl: string;
+  info: Task;
 }
 
-function Card({ title, imageUrl }: CardProp) {
+function Card({ info }: CardProp) {
   return (
     <div className="card_body">
       <div className="card_disc_box">
-        <p className="card_disc">{title}</p>
+        <p className="card_disc">{info.name}</p>
       </div>
       <div className="card_image_box">
         <img
-          src={imageUrl}
+          src={info.imgUrl}
           alt="Business Chemistry Image"
           className="card_image"
         />
