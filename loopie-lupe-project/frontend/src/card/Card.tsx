@@ -1,14 +1,19 @@
 import "./Card.css";
 
-function Card() {
+interface CardProp {
+  title: String;
+  imageUrl: string;
+}
+
+function Card({ title, imageUrl }: CardProp) {
   return (
     <div className="card_body">
       <div className="card_disc_box">
-        <p className="card_disc">I'm a card</p>
+        <p className="card_disc">{title}</p>
       </div>
       <div className="card_image_box">
         <img
-          src="/vite.svg"
+          src={imageUrl}
           alt="Business Chemistry Image"
           className="card_image"
         />
