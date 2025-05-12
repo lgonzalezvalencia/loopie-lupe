@@ -1,0 +1,52 @@
+.login-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.login-container__title {
+  font-family: "Open Sans";
+  font-size: 80px;
+  font-weight: 300;
+}
+.login-form__email-label,
+.login-form__password-label {
+  font-family: "Open Sans";
+  font-weight: 300;
+  font-size: 16px;
+  padding-top: 10px;
+}
+.login-form__email-input,
+.login-form__password-input {
+  width: 500px;
+  height: 25px;
+  padding: 5px;
+}
+.form-error__password,
+.form-error__email {
+  padding: 3px;
+  color: red;
+}
+
+.submit-login-button {
+  align-self: center;
+  margin-top: 10px;
+  width: 90px;
+  height: 35px;
+  background-color: rgb(24, 141, 204);
+  color: white;
+  border-radius: 2.5px;
+  border: solid 1px;
+}
+.submit-login-button:hover {
+  cursor: pointer;
+  background-color: rgb(21, 122, 176);
+}
