@@ -1,9 +1,10 @@
 import ColumnContainer from "./columnContainer/ColumnContainer";
+import "./MainPage.css";
 
 function MainApp() {
   return (
     <>
-      <h1>I'm the Main Page</h1>
+      <h1 className="page_title">MindFlow</h1>
       <ColumnContainer />
     </>
   );
