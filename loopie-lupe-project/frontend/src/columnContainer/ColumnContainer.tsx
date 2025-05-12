@@ -12,7 +12,12 @@ function ColumnContainer() {
   const [issueList, setIssueList] = useState<Task[]>([]);
   const [doneList, setDoneList] = useState<Task[]>([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setTodoList(taskList.filter((task) => task.status === "TODO"));
+    setProgressList(taskList.filter((task) => task.status === "IN_PROGRESS"));
+    setIssueList(taskList.filter((task) => task.status === "ISSUE"));
+    setDoneList(taskList.filter((task) => task.status === "DONE"));
+  }, [taskList]);
 
   return (
     <>
