@@ -8,6 +8,7 @@ function ColumnContainer() {
         <Column />
         <Column />
         <Column />
+        <Column />
       </div>
     </>
   );

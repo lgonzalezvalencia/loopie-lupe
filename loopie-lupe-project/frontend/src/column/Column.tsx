@@ -4,8 +4,7 @@ import "./Column.css";
 function Column() {
   return (
     <>
-      <div>
-        <p>I'm a column</p>
+      <div className="column">
         <Card />
       </div>
     </>
