@@ -6,7 +6,10 @@ function Column() {
     <>
       <div>
         <p>I'm a column</p>
-        <Card />
+        <Card
+          title="I'm a card and my job is to show information in an easy to parse way"
+          imageUrl="/driver.png"
+        />
       </div>
     </>
   );
