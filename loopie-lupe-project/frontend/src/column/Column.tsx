@@ -1,3 +1,4 @@
+import { useDroppable } from "@dnd-kit/core";
 import Card from "../card/Card";
 import type { Task } from "../data/types";
 import "./Column.css";
@@ -8,17 +9,18 @@ interface ColumnProps {
 }
 
 function Column({ title, instanceTasks }: ColumnProps) {
+  const { setNodeRef } = useDroppable({
+    id: title,
+  });
+
   return (
-    <>
-      <div className="column">
-        <p className="column_title"> {title} </p>
-        {instanceTasks
-          ? instanceTasks.map((instance) => {
-              return <Card info={instance} key={instance.id} />;
-            })
-          : ""}
-      </div>
-    </>
+    <div ref={setNodeRef} className="column">
+      <p className="column_title"> {title} </p>
+      {instanceTasks.map((instance) => (
+        <Card info={instance} key={instance.id} />
+      ))}
+    </div>
   );
 }
+
 export default Column;

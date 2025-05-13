@@ -1,3 +1,4 @@
+import { DndContext, type DragEndEvent } from "@dnd-kit/core";
 import { useContext, useEffect, useState } from "react";
 import Column from "../column/Column";
 import "./ColumnContainer.css";
@@ -6,7 +7,6 @@ import type { Task } from "../data/types";
 
 function ColumnContainer() {
   const { taskList, setTaskList } = useContext(TaskListContext);
-
   const [todoList, setTodoList] = useState<Task[]>([]);
   const [progressList, setProgressList] = useState<Task[]>([]);
   const [issueList, setIssueList] = useState<Task[]>([]);
@@ -19,15 +19,48 @@ function ColumnContainer() {
     setDoneList(taskList.filter((task) => task.status === "DONE"));
   }, [taskList]);
 
+  const mapStatus = (columnId: string): Task["status"] => {
+    switch (columnId) {
+      case "To Do":
+        return "TODO";
+      case "In Progress":
+        return "IN_PROGRESS";
+      case "Issue":
+        return "ISSUE";
+      case "Done":
+        return "DONE";
+      default:
+        return "TODO";
+    }
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over) {
+      const activeIndex = taskList.findIndex((task) => task.id === active.id);
+      const overIndex = taskList.findIndex((task) => task.id === over.id);
+
+      const updatedTasks = [...taskList];
+      const [movedTask] = updatedTasks.splice(activeIndex, 1);
+      movedTask.status = mapStatus(String(over.id));
+      console.log(`Task ID: ${movedTask.id}, New Status: ${movedTask.status}`); // Log the new status
+      updatedTasks.splice(overIndex, 0, movedTask);
+
+      setTaskList(updatedTasks);
+    }
+  };
+
   return (
-    <>
+    <DndContext onDragEnd={handleDragEnd}>
       <div className="columns">
         <Column title="To Do" instanceTasks={todoList} />
         <Column title="In Progress" instanceTasks={progressList} />
         <Column title="Issue" instanceTasks={issueList} />
         <Column title="Done" instanceTasks={doneList} />
       </div>
-    </>
+    </DndContext>
   );
 }
+
 export default ColumnContainer;
