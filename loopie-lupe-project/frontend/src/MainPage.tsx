@@ -50,6 +50,7 @@ function MainApp() {
             <h1 className="page-title">MindFlow</h1>
             <button onClick={openDialog}>+ New</button>
           </div>
+
           <div className="kanban-area">
             <CreateTask isOpen={isDialogOpen} onClose={closeDialog} />
             <TaskDetails
