@@ -21,7 +21,8 @@ function CreateTask({ isOpen, onClose }: CreateTaskProps) {
     event.stopPropagation();
   };
 
-  const handleSaveTask = () => {
+  const handleSaveTask = (event: React.FormEvent) => {
+    event.preventDefault();
     const newTask: Task = {
       id: Date.now(),
       name: taskName,

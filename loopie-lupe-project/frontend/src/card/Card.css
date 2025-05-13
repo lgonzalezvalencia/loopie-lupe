@@ -3,7 +3,8 @@
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   padding: 1rem;
-  width: 235px;
+  margin-top: 1rem;
+  width: 10rem;
 
   display: flex;
   flex-direction: column;
@@ -15,12 +16,12 @@
   cursor: pointer;
 }
 
-.card_disc{
+.card_disc {
   font-weight: 400;
   font-size: 20px;
 }
 
-.card_image{
+.card_image {
   width: 24px;
   height: 24px;
 }
