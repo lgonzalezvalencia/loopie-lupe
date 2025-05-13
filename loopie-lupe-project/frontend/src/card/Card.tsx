@@ -1,10 +1,24 @@
+import type { Task } from "../data/types";
 import "./Card.css";
 
-function Card() {
+interface CardProp {
+  info: Task;
+}
+
+function Card({ info }: CardProp) {
   return (
-    <>
-      <p>I'm a card</p>
-    </>
+    <div className="card_body">
+      <div className="card_disc_box">
+        <p className="card_disc">{info.name}</p>
+      </div>
+      <div className="card_image_box">
+        <img
+          src={info.imgUrl}
+          alt="Business Chemistry Image"
+          className="card_image"
+        />
+      </div>
+    </div>
   );
 }
 export default Card;

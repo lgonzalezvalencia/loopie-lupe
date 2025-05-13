@@ -1,0 +1,14 @@
+.column {
+  background-color: #F3F3F3;
+  padding: 20px;
+  border-radius: 10px;
+  width: 23%;
+  height: 100vh;
+}
+
+.column_title{
+  height: 22px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #64666B
+}

@@ -11,7 +11,11 @@ const validationSchema = Yup.object().shape({
     .required("Password is required"),
 });
 
-const LoginForm = () => {
+interface LoginPageProps {
+  setIsLoggedIn: (loggedIn: boolean) => void;
+}
+
+const LoginForm = ({ setIsLoggedIn }: LoginPageProps) => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -20,6 +24,9 @@ const LoginForm = () => {
     validationSchema,
     onSubmit: (values) => {
       console.log("Form values:", values);
+      console.log(setIsLoggedIn);
+      setIsLoggedIn(true);
+      console.log(setIsLoggedIn);
     },
   });
 
@@ -70,12 +77,12 @@ const LoginForm = () => {
   );
 };
 
-function LoginPage() {
+function LoginPage({ setIsLoggedIn }: LoginPageProps) {
   return (
     <>
       <div className="login-container">
         <h1 className="login-container__title">Mindflow</h1>
-        <LoginForm />
+        <LoginForm setIsLoggedIn={setIsLoggedIn} />
       </div>
     </>
   );

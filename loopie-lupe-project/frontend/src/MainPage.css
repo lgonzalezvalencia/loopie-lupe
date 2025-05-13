@@ -1,0 +1,20 @@
+.page_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 40px 0 40px;
+}
+.page_title {
+  padding: 40px 0 0 40px;
+}
+.page_header button {
+  background-color: rgb(24, 141, 204);
+  color: white;
+  border-radius: 2.5px;
+  border: solid 1px;
+  width: 90px;
+  height: 35px;
+}
+.page_header button:hover {
+  cursor: pointer;
+}
