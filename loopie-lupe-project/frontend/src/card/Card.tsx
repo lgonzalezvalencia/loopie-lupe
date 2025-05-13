@@ -1,6 +1,6 @@
 import type { Task } from "../data/types";
 import { useEffect, useRef } from "react";
-import { defineType} from "../utils/defineType";
+import { defineType } from "../utils/defineType";
 import { useProgress } from "../context/ProgressContext";
 import "./Card.css";
 
@@ -11,7 +11,7 @@ interface CardProp {
 function Card({ info }: CardProp) {
   const { addTypeCount } = useProgress();
   const previousStatusRef = useRef(info.status);
-  
+
   useEffect(() => {
     const previousStatus = previousStatusRef.current;
 
@@ -30,11 +30,15 @@ function Card({ info }: CardProp) {
         <p className="card_disc">{info.name}</p>
       </div>
       <div className="card_image_box">
-        <img
-          src={info.imgUrl}
-          alt="Business Chemistry Image"
-          className="card_image"
-        />
+        {info.imgUrl == "" ? (
+          ""
+        ) : (
+          <img
+            src={info.imgUrl}
+            alt="Business Chemistry Image"
+            className="card_image"
+          />
+        )}
       </div>
     </div>
   );
