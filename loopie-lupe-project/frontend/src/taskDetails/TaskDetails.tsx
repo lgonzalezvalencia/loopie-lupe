@@ -22,7 +22,7 @@ function TaskDetails({ isOpen, onClose, instance }: TaskDetailsProp) {
     const newTask: Task = {
       id: instance.id,
       name: taskName,
-      imgUrl: "",
+      imgUrl: instance.imgUrl,
       status: taskStatus,
       details: taskDetails,
       dueDate: new Date(taskDueDate),
