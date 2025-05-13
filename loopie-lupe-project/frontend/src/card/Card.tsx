@@ -1,8 +1,9 @@
 import { useDraggable } from "@dnd-kit/core";
-import type { Task } from "../data/types";
-import { useEffect, useRef } from "react";
-import { defineType } from "../utils/defineType";
+import { useContext, useEffect, useRef } from "react";
 import { useProgress } from "../context/ProgressContext";
+import type { Task } from "../data/types";
+import { TaskDetailsDialogContext } from "../MainPage";
+import { defineType } from "../utils/defineType";
 import "./Card.css";
 
 interface CardProp {
@@ -10,8 +11,14 @@ interface CardProp {
 }
 
 function Card({ info }: CardProp) {
+  const { openDetails, setDetailsTask } = useContext(TaskDetailsDialogContext);
   const { addTypeCount } = useProgress();
+
   const previousStatusRef = useRef(info.status);
+
+  useEffect(() => {
+    setDetailsTask(info);
+  }, []);
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: info.id,
@@ -30,6 +37,7 @@ function Card({ info }: CardProp) {
 
   return (
     <div
+      onClick={openDetails}
       ref={setNodeRef}
       style={{
         transform: `translate3d(${transform?.x}px, ${transform?.y}px, 0)`,
@@ -42,11 +50,15 @@ function Card({ info }: CardProp) {
         <p className="card_disc">{info.name}</p>
       </div>
       <div className="card_image_box">
-        <img
-          src={info.imgUrl}
-          alt="Business Chemistry Image"
-          className="card_image"
-        />
+        {info.imgUrl == "" ? (
+          ""
+        ) : (
+          <img
+            src={info.imgUrl}
+            alt="Business Chemistry Image"
+            className="card_image"
+          />
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import {
   createContext,
+  useEffect,
   useState,
   type Dispatch,
   type SetStateAction,
@@ -21,6 +22,24 @@ export const TaskListContext = createContext<TaskListContextType>({
 
 function App() {
   const [taskList, setTaskList] = useState<Task[]>([]);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  useEffect(() => {
+    const storedTaskList = localStorage.getItem("taskList");
+    if (storedTaskList) {
+      try {
+        setTaskList(JSON.parse(storedTaskList) as Task[]);
+      } catch (error) {
+        console.error("Error parsing task list from localStorage", error);
+      }
+    }
+    setIsInitialLoad(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isInitialLoad)
+      localStorage.setItem("taskList", JSON.stringify(taskList));
+  }, [taskList, isInitialLoad]);
 
   return (
     <TaskListContext.Provider value={{ taskList, setTaskList }}>
