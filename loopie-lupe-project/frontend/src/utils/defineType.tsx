@@ -1,6 +1,6 @@
 import { type Type, Keywords } from "./Types";
 
-export function defineType(title: string): Type {
+export function defineType(title: string): Type | null {
   const lowerCased = title.toLowerCase();
 
   for (const type of Object.keys(Keywords) as Type[]) {
@@ -10,5 +10,7 @@ export function defineType(title: string): Type {
       }
     }
   }
-  throw new Error(`Unclassified`);
+
+  console.warn(`Unclassified type for title: ${title}`);
+  return null;
 }

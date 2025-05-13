@@ -1,3 +1,4 @@
+import { useDraggable } from "@dnd-kit/core";
 import { useContext, useEffect, useRef } from "react";
 import { useProgress } from "../context/ProgressContext";
 import type { Task } from "../data/types";
@@ -19,9 +20,12 @@ function Card({ info }: CardProp) {
     setDetailsTask(info);
   }, []);
 
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: info.id,
+  });
+
   useEffect(() => {
     const previousStatus = previousStatusRef.current;
-
     if (info.status === "DONE" && previousStatus !== "DONE") {
       const type = defineType(info.name);
       if (type) {
@@ -32,7 +36,16 @@ function Card({ info }: CardProp) {
   }, [info.status, info.name, addTypeCount]);
 
   return (
-    <div className="card_body" onClick={openDetails}>
+    <div
+      onClick={openDetails}
+      ref={setNodeRef}
+      style={{
+        transform: `translate3d(${transform?.x}px, ${transform?.y}px, 0)`,
+      }}
+      {...listeners}
+      {...attributes}
+      className="card_body"
+    >
       <div className="card_disc_box">
         <p className="card_disc">{info.name}</p>
       </div>
@@ -50,4 +63,5 @@ function Card({ info }: CardProp) {
     </div>
   );
 }
+
 export default Card;
