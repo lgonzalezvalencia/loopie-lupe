@@ -10,7 +10,7 @@ import type { Task } from "./data/types";
 
 interface TaskListContextType {
   taskList: Task[];
-  setTaskList: Dispatch<SetStateAction<never[]>>;
+  setTaskList: Dispatch<SetStateAction<Task[]>>;
 }
 
 export const TaskListContext = createContext<TaskListContextType>({
@@ -19,7 +19,8 @@ export const TaskListContext = createContext<TaskListContextType>({
 });
 
 function App() {
-  const [taskList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState<Task[]>([]);
+
   return (
     <TaskListContext.Provider value={{ taskList, setTaskList }}>
       <MainPage />
