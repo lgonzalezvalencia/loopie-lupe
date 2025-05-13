@@ -1,0 +1,17 @@
+.progress-bar {
+    display: flex;
+}
+
+.outer-bar {
+    width: 100%;
+    height: 16px;
+    border-color: #000000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.inner-bar {
+    background-color: red;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}

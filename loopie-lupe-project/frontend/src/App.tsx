@@ -7,6 +7,7 @@ import {
 import "./App.css";
 import MainPage from "./MainPage";
 import type { Task } from "./data/types";
+import { ProgressProvider } from "./context/ProgressContext";
 
 interface TaskListContextType {
   taskList: Task[];
@@ -23,7 +24,9 @@ function App() {
 
   return (
     <TaskListContext.Provider value={{ taskList, setTaskList }}>
-      <MainPage />
+      <ProgressProvider>
+        <MainPage />
+      </ProgressProvider>
     </TaskListContext.Provider>
   );
 }

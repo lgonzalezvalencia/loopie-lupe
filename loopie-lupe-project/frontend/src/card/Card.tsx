@@ -1,4 +1,7 @@
 import type { Task } from "../data/types";
+import { useEffect, useRef } from "react";
+import { defineType} from "../utils/defineType";
+import { useProgress } from "../context/ProgressContext";
 import "./Card.css";
 
 interface CardProp {
@@ -6,6 +9,21 @@ interface CardProp {
 }
 
 function Card({ info }: CardProp) {
+  const { addTypeCount } = useProgress();
+  const previousStatusRef = useRef(info.status);
+  
+  useEffect(() => {
+    const previousStatus = previousStatusRef.current;
+
+    if (info.status === "DONE" && previousStatus !== "DONE") {
+      const type = defineType(info.name);
+      if (type) {
+        addTypeCount(type);
+      }
+    }
+    previousStatusRef.current = info.status;
+  }, [info.status, info.name, addTypeCount]);
+
   return (
     <div className="card_body">
       <div className="card_disc_box">
