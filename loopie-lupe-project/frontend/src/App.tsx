@@ -33,7 +33,6 @@ function App() {
         console.error("Error parsing task list from localStorage", error);
       }
     }
-
     setIsInitialLoad(false);
   }, []);
 

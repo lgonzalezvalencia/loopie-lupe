@@ -1,7 +1,8 @@
-import type { Task } from "../data/types";
-import { useEffect, useRef } from "react";
-import { defineType } from "../utils/defineType";
+import { useContext, useEffect, useRef } from "react";
 import { useProgress } from "../context/ProgressContext";
+import type { Task } from "../data/types";
+import { TaskDetailsDialogContext } from "../MainPage";
+import { defineType } from "../utils/defineType";
 import "./Card.css";
 
 interface CardProp {
@@ -9,8 +10,14 @@ interface CardProp {
 }
 
 function Card({ info }: CardProp) {
+  const { openDetails, setDetailsTask } = useContext(TaskDetailsDialogContext);
   const { addTypeCount } = useProgress();
+
   const previousStatusRef = useRef(info.status);
+
+  useEffect(() => {
+    setDetailsTask(info);
+  }, []);
 
   useEffect(() => {
     const previousStatus = previousStatusRef.current;
@@ -25,7 +32,7 @@ function Card({ info }: CardProp) {
   }, [info.status, info.name, addTypeCount]);
 
   return (
-    <div className="card_body">
+    <div className="card_body" onClick={openDetails}>
       <div className="card_disc_box">
         <p className="card_disc">{info.name}</p>
       </div>

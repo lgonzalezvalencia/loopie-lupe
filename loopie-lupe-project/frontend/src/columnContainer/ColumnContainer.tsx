@@ -5,7 +5,7 @@ import { TaskListContext } from "../App";
 import type { Task } from "../data/types";
 
 function ColumnContainer() {
-  const { taskList, setTaskList } = useContext(TaskListContext);
+  const { taskList } = useContext(TaskListContext);
 
   const [todoList, setTodoList] = useState<Task[]>([]);
   const [progressList, setProgressList] = useState<Task[]>([]);
