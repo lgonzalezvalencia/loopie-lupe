@@ -1,14 +1,21 @@
 .column {
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   padding: 20px;
   border-radius: 10px;
   width: 23%;
   height: 100vh;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
 }
 
-.column_title{
+.column:hover {
+  border-color: #64666b;
+}
+
+.column_title {
   height: 22px;
   font-weight: 600;
   font-size: 16px;
-  color: #64666B
+  color: #64666b;
 }
