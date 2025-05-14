@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { dbCreate } from './task.repository';
+import { dbCreate, findById } from './task.repository';
 import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class TaskService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} task`;
+    return findById(id);
   }
 
   update(id: number, updateTaskDto: UpdateTaskDto) {
