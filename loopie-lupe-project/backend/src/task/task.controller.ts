@@ -1,15 +1,18 @@
 import {
-  Controller,
-  Get,
-  Post,
+  BadRequestException,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Logger,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
+import { Task } from '../entity/Task';
+import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller('task')
 export class TaskController {
@@ -17,7 +20,16 @@ export class TaskController {
 
   @Post()
   create(@Body() createTaskDto: CreateTaskDto) {
-    return this.taskService.create(createTaskDto);
+    const logger = new Logger();
+    logger.log('Request Body:', JSON.stringify(createTaskDto));
+
+    if (!createTaskDto || Object.keys(createTaskDto).length === 0) {
+      logger.warn('Request body is empty or invalid');
+      throw new BadRequestException('Body cannot be empty');
+    }
+
+    this.taskService.create(createTaskDto);
+    return JSON.stringify(createTaskDto);
   }
 
   @Get()

@@ -1,8 +1,10 @@
+import { log } from 'console';
 import { Task } from '../entity/Task';
 import { AppDataSource } from '../index';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { Logger } from '@nestjs/common';
 
-export const create = async (taskInput: CreateTaskDto) => {
+export const dbCreate = async (taskInput: CreateTaskDto) => {
   const task = new Task();
   task.name = taskInput.name;
   task.details = taskInput.details;
