@@ -28,8 +28,7 @@ export class TaskController {
       throw new BadRequestException('Body cannot be empty');
     }
 
-    this.taskService.create(createTaskDto);
-    return JSON.stringify(createTaskDto);
+    return this.taskService.create(createTaskDto);
   }
 
   @Get()
