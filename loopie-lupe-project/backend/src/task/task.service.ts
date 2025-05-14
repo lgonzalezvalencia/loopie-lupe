@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { dbCreate, findById } from './task.repository';
+import { dbCreate, findAll, findById, remove } from './task.repository';
 import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class TaskService {
   }
 
   findAll() {
-    return `This action returns all task`;
+    return findAll();
   }
 
   findOne(id: number) {
@@ -22,6 +22,6 @@ export class TaskService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} task`;
+    return remove(id);
   }
 }

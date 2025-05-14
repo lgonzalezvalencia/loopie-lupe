@@ -17,7 +17,10 @@ export const dbCreate = async (taskInput: CreateTaskDto) => {
   await taskRepository.save(task);
 };
 
-export const findAll = () => {};
+export const findAll = async () => {
+  const taskRepository = AppDataSource.getRepository(Task);
+  return await taskRepository.find();
+};
 
 export const findById = async (id_var: number) => {
   const taskRepository = AppDataSource.getRepository(Task);
@@ -29,4 +32,8 @@ export const findById = async (id_var: number) => {
 
 export const update = (id: number, task: Task) => {};
 
-export const remove = (id: number) => {};
+export const remove = async (id: number) => {
+  const taskRepository = AppDataSource.getRepository(Task);
+  const result = await taskRepository.delete(id);
+  return result.affected > 0;
+};
