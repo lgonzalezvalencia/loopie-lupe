@@ -15,6 +15,7 @@ export const dbCreate = async (taskInput: CreateTaskDto) => {
 
   const taskRepository = AppDataSource.getRepository(Task);
   await taskRepository.save(task);
+  return task;
 };
 
 export const findAll = async () => {
