@@ -16,6 +16,15 @@ export const AppDataSource = new DataSource({
   subscribers: [],
 });
 
+// {
+//   "name": "test",
+//   "imgUrl": "",
+//   "status": "TODO",
+//   "details": "Testing API",
+//   "dueDate": "2025-05-15T00:00:00Z",
+//   "repeat": "NEVER"
+// }
+
 AppDataSource.initialize()
   .then(async () => {
     bootstrap();

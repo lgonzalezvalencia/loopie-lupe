@@ -1,5 +1,4 @@
 export class CreateTaskDto {
-  id: number;
   name: string;
   imgUrl: string;
   status: 'TODO' | 'IN_PROGRESS' | 'ISSUE' | 'DONE' /* Enum */;
