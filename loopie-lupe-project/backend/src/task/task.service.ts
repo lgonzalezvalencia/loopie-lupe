@@ -6,7 +6,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 @Injectable()
 export class TaskService {
   create(createTaskDto: CreateTaskDto) {
-    dbCreate(createTaskDto);
+    return dbCreate(createTaskDto);
   }
 
   findAll() {
