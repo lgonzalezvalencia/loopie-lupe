@@ -1,4 +1,4 @@
-import { DndContext, type DragEndEvent } from "@dnd-kit/core";
+import { DndContext, closestCorners, type DragEndEvent } from "@dnd-kit/core";
 import { useContext, useEffect, useState } from "react";
 import Column from "../column/Column";
 import "./ColumnContainer.css";
@@ -39,20 +39,24 @@ function ColumnContainer() {
 
     if (over) {
       const activeIndex = taskList.findIndex((task) => task.id === active.id);
-      const overIndex = taskList.findIndex((task) => task.id === over.id);
+      const overStatus = mapStatus(String(over.id));
 
-      const updatedTasks = [...taskList];
-      const [movedTask] = updatedTasks.splice(activeIndex, 1);
-      movedTask.status = mapStatus(String(over.id));
-      console.log(`Task ID: ${movedTask.id}, New Status: ${movedTask.status}`); // Log the new status
-      updatedTasks.splice(overIndex, 0, movedTask);
+      if (activeIndex !== -1) {
+        const updatedTasks = [...taskList];
+        const [movedTask] = updatedTasks.splice(activeIndex, 1);
 
-      setTaskList(updatedTasks);
+        if (movedTask.status !== overStatus) {
+          movedTask.status = overStatus;
+        }
+
+        updatedTasks.push(movedTask);
+        setTaskList(updatedTasks);
+      }
     }
   };
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
       <div className="columns">
         <Column title="To Do" instanceTasks={todoList} />
         <Column title="In Progress" instanceTasks={progressList} />

@@ -1,5 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useProgress } from "../context/ProgressContext";
 import type { Task } from "../data/types";
 import { TaskDetailsDialogContext } from "../MainPage";
@@ -15,12 +15,21 @@ function Card({ info }: CardProp) {
   const { addTypeCount } = useProgress();
 
   const previousStatusRef = useRef(info.status);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     setDetailsTask(info);
   }, []);
 
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    isDragging: dragging,
+  } = useDraggable({
     id: info.id,
   });
 
@@ -35,12 +44,35 @@ function Card({ info }: CardProp) {
     previousStatusRef.current = info.status;
   }, [info.status, info.name, addTypeCount]);
 
+  useEffect(() => {
+    setIsDragging(dragging);
+  }, [dragging]);
+
+  const getConstrainedTransform = () => {
+    if (!cardRef.current || !transform) return transform;
+
+    const columnWidth = cardRef.current.parentElement?.offsetWidth || 0;
+    const constrainedX = Math.max(
+      0,
+      Math.min(transform.x, columnWidth - cardRef.current.offsetWidth)
+    );
+
+    return { ...transform, x: constrainedX };
+  };
+
+  const constrainedTransform = getConstrainedTransform();
+
   return (
     <div
       onClick={openDetails}
-      ref={setNodeRef}
+      ref={(node) => {
+        setNodeRef(node);
+        cardRef.current = node;
+      }}
       style={{
-        transform: `translate3d(${transform?.x}px, ${transform?.y}px, 0)`,
+        transition: isDragging ? "none" : "transform 0.3s ease",
+        opacity: isDragging ? 0.85 : 1, // Semi-transparent while dragging
+        boxShadow: isDragging ? "0 4px 8px rgba(0, 0, 0, 0.8)" : "none", // Shadow effect
       }}
       {...listeners}
       {...attributes}
@@ -50,7 +82,7 @@ function Card({ info }: CardProp) {
         <p className="card_disc">{info.name}</p>
       </div>
       <div className="card_image_box">
-        {info.imgUrl == "" ? (
+        {info.imgUrl === "" ? (
           ""
         ) : (
           <img
