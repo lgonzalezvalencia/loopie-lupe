@@ -44,6 +44,10 @@ function Card({ info }: CardProp) {
     previousStatusRef.current = info.status;
   }, [info.status, info.name, addTypeCount]);
 
+  const handleContainerClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
+
   useEffect(() => {
     setIsDragging(dragging);
   }, [dragging]);
@@ -60,7 +64,7 @@ function Card({ info }: CardProp) {
     return { ...transform, x: constrainedX };
   };
 
-  const constrainedTransform = getConstrainedTransform();
+  // const constrainedTransform = getConstrainedTransform();
 
   return (
     <div
