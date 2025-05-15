@@ -111,6 +111,9 @@ function TaskDetails({ isOpen, onClose, instance }: TaskDetailsProp) {
             </button>
           </div>
         </form>
+        <div className="update-task-save-button">
+          <button className="delete-task-button">Delete Task</button>
+        </div>
       </div>
     </dialog>
   );

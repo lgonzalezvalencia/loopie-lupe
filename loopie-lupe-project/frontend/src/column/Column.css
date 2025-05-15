@@ -7,6 +7,8 @@
   box-sizing: border-box;
   border: 2px solid transparent;
   transition: border-color 0.3s;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .column:hover {

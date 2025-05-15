@@ -62,3 +62,15 @@
 .save-task-button:hover {
   cursor: pointer;
 }
+
+.delete-task-button {
+  width: 90px;
+  height: 35px;
+  background-color: rgb(204, 24, 24);
+  color: white;
+  border-radius: 2.5px;
+  border: solid 1px;
+}
+.delete-task-button:hover {
+  cursor: pointer;
+}
