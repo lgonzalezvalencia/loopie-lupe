@@ -6,9 +6,11 @@ import {
   type SetStateAction,
 } from "react";
 import "./App.css";
-import MainPage from "./MainPage";
 import type { Task } from "./data/types";
 import { ProgressProvider } from "./context/ProgressContext";
+import { BrowserRouter } from "react-router-dom";
+import LoginPage from "./login/LoginPage";
+import AppRouter from "./AppRouter";
 
 interface TaskListContextType {
   taskList: Task[];
@@ -23,28 +25,38 @@ export const TaskListContext = createContext<TaskListContextType>({
 function App() {
   const [taskList, setTaskList] = useState<Task[]>([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  console.log("isLoggedIn: ", isLoggedIn);
 
   useEffect(() => {
     const storedTaskList = localStorage.getItem("taskList");
     if (storedTaskList) {
       try {
-        setTaskList(JSON.parse(storedTaskList) as Task[]);
-      } catch (error) {
-        console.error("Error parsing task list from localStorage", error);
+        setTaskList(JSON.parse(storedTaskList));
+      } catch (err) {
+        console.error("Error parsing task list from localStorage", err);
       }
     }
     setIsInitialLoad(false);
   }, []);
 
   useEffect(() => {
-    if (!isInitialLoad)
+    if (!isInitialLoad) {
       localStorage.setItem("taskList", JSON.stringify(taskList));
+    }
   }, [taskList, isInitialLoad]);
 
   return (
     <TaskListContext.Provider value={{ taskList, setTaskList }}>
       <ProgressProvider>
-        <MainPage />
+        {isLoggedIn ? (
+          <BrowserRouter>
+            <AppRouter />
+          </BrowserRouter>
+        ) : (
+          <LoginPage setIsLoggedIn={setIsLoggedIn} />
+        )}
       </ProgressProvider>
     </TaskListContext.Provider>
   );

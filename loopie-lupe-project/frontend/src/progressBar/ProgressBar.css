@@ -1,17 +1,35 @@
+h2 {
+    font-size: 16px;
+    text-align: center;
+}
+
+.type-tag {
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
 .progress-bar {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.progress-bar:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 .outer-bar {
     width: 100%;
-    height: 16px;
+    height: 30px;
+    position: relative;
+    padding: 5px;
     border-color: #000000;
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: 20px;
+    background-color: #E7E7E7;
 }
 
 .inner-bar {
-    background-color: red;
+    height: 20px;
     border-radius: 10px;
-    transition: width 0.3s ease;
 }
+

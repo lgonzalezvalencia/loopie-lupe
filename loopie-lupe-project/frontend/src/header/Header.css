@@ -1,0 +1,39 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 40px 0 40px;
+}
+.page-title {
+  padding: 40px 0 0 40px;
+}
+
+.buttons {
+  display: flex;
+  align-items: end;
+}
+
+.new-button {
+  width: 90px;
+  height: 35px;
+  background-color: rgb(24, 141, 204);
+  color: white;
+  border: none;
+  border-radius: 2.5px;
+}
+.new-button:hover {
+  cursor: pointer;
+}
+
+.summary-button {
+  width: 90px;
+  height: 35px;
+  background-color: #FFFFFF;
+  color: rgb(24, 141, 204);
+  border: 2px solid rgb(24, 141, 204);
+  border-radius: 2.5px;
+  margin-right: 10px;
+}
+.summary-button:hover {
+  cursor: pointer;
+}

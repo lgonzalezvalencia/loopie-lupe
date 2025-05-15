@@ -1,4 +1,8 @@
 .progress-container {
     display: flex;
-    padding: 10px;
+    flex-direction: column;
+    width: 100%;
+    padding: 2.5rem;
+    background-color: #F3F3F3;
+    border-radius: 20px;
 }
