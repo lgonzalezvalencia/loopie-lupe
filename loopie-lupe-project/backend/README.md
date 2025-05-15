@@ -28,6 +28,7 @@
 ## Project setup
 
 ```bash
+$ podman run -d --name postgresdb --network mynetwork -e POSTGRES_DB=postgres -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -p 6432:5432 postgres:17.4-alpine
 $ npm install
 ```
 
