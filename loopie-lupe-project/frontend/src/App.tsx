@@ -38,6 +38,14 @@ function App() {
         console.error("Error parsing task list from localStorage", err);
       }
     }
+    const loggedInInfo = sessionStorage.getItem("loggedIn");
+    if (loggedInInfo) {
+      try {
+        setIsLoggedIn(JSON.parse(loggedInInfo));
+      } catch (err) {
+        console.error("Error parsing if logged in from sessionStorage", err);
+      }
+    }
     setIsInitialLoad(false);
   }, []);
 
@@ -46,6 +54,12 @@ function App() {
       localStorage.setItem("taskList", JSON.stringify(taskList));
     }
   }, [taskList, isInitialLoad]);
+
+  useEffect(() => {
+    if (!isInitialLoad) {
+      sessionStorage.setItem("loggedIn", JSON.stringify(isLoggedIn));
+    }
+  }, [isLoggedIn, isInitialLoad]);
 
   return (
     <TaskListContext.Provider value={{ taskList, setTaskList }}>
