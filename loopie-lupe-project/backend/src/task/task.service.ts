@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { dbCreate, findAll, findById, remove } from './task.repository';
+import { dbCreate, findAll, findById, remove, update } from './task.repository';
 import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
@@ -17,8 +17,8 @@ export class TaskService {
     return findById(id);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
+    return update(id, updateTaskDto);
   }
 
   remove(id: number) {

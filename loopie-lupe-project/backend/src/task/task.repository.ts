@@ -3,6 +3,7 @@ import { Task } from '../entity/Task';
 import { AppDataSource } from '../index';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Logger } from '@nestjs/common';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 export const dbCreate = async (taskInput: CreateTaskDto) => {
   const task = new Task();
@@ -31,7 +32,19 @@ export const findById = async (id_var: number) => {
   return task;
 };
 
-export const update = (id: number, task: Task) => {};
+export const update = async (id: number, updateTaskDto: UpdateTaskDto) => {
+  const taskRepository = AppDataSource.getRepository(Task);
+
+  const task = await taskRepository.findOneBy({ id });
+  if (!task) {
+    return null;
+  }
+
+  Object.assign(task, updateTaskDto);
+
+  await taskRepository.save(task);
+  return task;
+};
 
 export const remove = async (id: number) => {
   const taskRepository = AppDataSource.getRepository(Task);
