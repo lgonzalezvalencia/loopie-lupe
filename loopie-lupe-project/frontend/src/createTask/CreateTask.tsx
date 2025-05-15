@@ -35,6 +35,7 @@ function CreateTask({ isOpen, onClose }: CreateTaskProps) {
 
     setTaskList((prevTasks) => [...prevTasks, newTask]);
     onClose();
+    window.location.reload();
     console.log(newTask);
   };
 
