@@ -45,7 +45,9 @@ function TaskDetails({ isOpen, onClose, instance }: TaskDetailsProp) {
   return (
     <dialog open={isOpen} className="task_details_overlay" onClick={onClose}>
       <div className="task_details_container" onClick={handleContainerClick}>
-        <button onClick={onClose}>X</button>
+        <button className="dialog-close-button" onClick={onClose}>
+          X
+        </button>
 
         <form onSubmit={handleEditTask}>
           <h2 className="update-task">Title</h2>

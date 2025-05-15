@@ -38,7 +38,6 @@ function Card({ info }: CardProp) {
     attributes,
     listeners,
     setNodeRef,
-    transform,
     isDragging: dragging,
   } = useDraggable({
     id: info.id,
@@ -55,27 +54,9 @@ function Card({ info }: CardProp) {
     previousStatusRef.current = info.status;
   }, [info.status, info.name, addTypeCount]);
 
-  const handleContainerClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-  };
-
   useEffect(() => {
     setIsDragging(dragging);
   }, [dragging]);
-
-  const getConstrainedTransform = () => {
-    if (!cardRef.current || !transform) return transform;
-
-    const columnWidth = cardRef.current.parentElement?.offsetWidth || 0;
-    const constrainedX = Math.max(
-      0,
-      Math.min(transform.x, columnWidth - cardRef.current.offsetWidth)
-    );
-
-    return { ...transform, x: constrainedX };
-  };
-
-  // const constrainedTransform = getConstrainedTransform();
 
   return (
     <div
@@ -86,9 +67,9 @@ function Card({ info }: CardProp) {
       }}
       style={{
         transition: isDragging ? "none" : "transform 0.3s ease",
-        opacity: isDragging ? 0.85 : 1,
+        opacity: isDragging ? 0.7 : 1,
         boxShadow: isDragging ? "0 4px 8px rgba(0, 0, 0, 0.8)" : "none",
-        backgroundColor: type ? typeColors[type] : "#ffffff", // Color por tipo
+        backgroundColor: type ? typeColors[type] : "#ffffff",
       }}
       {...listeners}
       {...attributes}

@@ -1,4 +1,11 @@
-import { DndContext, closestCorners, type DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  closestCorners,
+  type DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { useContext, useEffect, useState } from "react";
 import Column from "../column/Column";
 import "./ColumnContainer.css";
@@ -54,9 +61,21 @@ function ColumnContainer() {
       }
     }
   };
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 10,
+      },
+    })
+  );
 
   return (
-    <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
+    <DndContext
+      collisionDetection={closestCorners}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
       <div className="columns">
         <Column title="To Do" instanceTasks={todoList} />
         <Column title="In Progress" instanceTasks={progressList} />
