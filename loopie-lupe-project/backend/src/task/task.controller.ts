@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { Task } from '../entity/Task';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -33,21 +34,29 @@ export class TaskController {
 
   @Get()
   findAll() {
+    const logger = new Logger();
+    logger.log('Get all being called');
     return this.taskService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    const logger = new Logger();
+    logger.log('Get one being called on Task:', id);
     return this.taskService.findOne(+id);
   }
 
   @Patch(':id') // Make it only change changed attributes
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+    const logger = new Logger();
+    logger.log('Patch being called on Task:', id);
     return this.taskService.update(+id, updateTaskDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
+    const logger = new Logger();
+    logger.log('Delete being called on Task:', id);
     return this.taskService.remove(+id);
   }
 }
