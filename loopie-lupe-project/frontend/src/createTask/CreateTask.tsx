@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { TaskListContext } from "../App";
 import type { Task } from "../data/types";
 import "./CreateTask.css";
+import { MainApiUrl } from "../data/endpoints";
 
 interface CreateTaskProps {
   isOpen: boolean;
@@ -21,7 +22,7 @@ function CreateTask({ isOpen, onClose }: CreateTaskProps) {
     event.stopPropagation();
   };
 
-  const handleSaveTask = (event: React.FormEvent) => {
+  const handleSaveTask = async (event: React.FormEvent) => {
     event.preventDefault();
     const newTask: Task = {
       id: Date.now(),
@@ -33,7 +34,24 @@ function CreateTask({ isOpen, onClose }: CreateTaskProps) {
       repeat: taskRepeat as "NEVER" | "DAILY" | "WEEKLY" | "MONTHLY",
     };
 
-    setTaskList((prevTasks) => [...prevTasks, newTask]);
+    try {
+      const response = await fetch(MainApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      console.log(response);
+      if (response.ok) {
+        console.log("Resource created successfully!");
+      } else {
+        console.error(`Failed to create resource. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error occurred while creating the resource:", error);
+    }
+
     onClose();
     window.location.reload();
     console.log(newTask);

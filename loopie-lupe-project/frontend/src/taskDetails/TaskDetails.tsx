@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import "./TaskDetails.css";
 import { TaskListContext } from "../App";
 import type { Task } from "../data/types";
+import { MainApiUrl } from "../data/endpoints";
 
 interface TaskDetailsProp {
   isOpen: boolean;
@@ -36,6 +37,26 @@ function TaskDetails({ isOpen, onClose, instance }: TaskDetailsProp) {
     onClose();
     window.location.reload();
     console.log(newTask);
+  };
+
+  const handleDeleteTask = async () => {
+    try {
+      const response = await fetch(MainApiUrl + "/" + instance.id, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        console.log("Resource deleted successfully!");
+      } else {
+        console.error(`Failed to delete resource. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error occurred while deleting the resource:", error);
+    }
+    onClose();
+    window.location.reload();
   };
 
   const handleContainerClick = (event: React.MouseEvent) => {
@@ -113,6 +134,11 @@ function TaskDetails({ isOpen, onClose, instance }: TaskDetailsProp) {
             </button>
           </div>
         </form>
+        <div className="update-task-save-button">
+          <button className="delete-task-button" onClick={handleDeleteTask}>
+            Delete Task
+          </button>
+        </div>
       </div>
     </dialog>
   );

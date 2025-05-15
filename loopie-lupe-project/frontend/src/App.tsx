@@ -11,6 +11,7 @@ import { ProgressProvider } from "./context/ProgressContext";
 import { BrowserRouter } from "react-router-dom";
 import LoginPage from "./login/LoginPage";
 import AppRouter from "./AppRouter";
+import { MainApiUrl } from "./data/endpoints";
 
 interface TaskListContextType {
   taskList: Task[];
@@ -27,15 +28,30 @@ function App() {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  console.log("isLoggedIn: ", isLoggedIn);
+  const fetchTaskList = async () => {
+    try {
+      const response = await fetch(MainApiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      setTaskList(data);
+    } catch (error) {
+      console.error("Error fetching task list:", error);
+    }
+  };
 
   useEffect(() => {
-    const storedTaskList = localStorage.getItem("taskList");
-    if (storedTaskList) {
+    fetchTaskList();
+  }, []);
+
+  useEffect(() => {
+    const loggedInInfo = sessionStorage.getItem("loggedIn");
+    if (loggedInInfo) {
       try {
-        setTaskList(JSON.parse(storedTaskList));
+        setIsLoggedIn(JSON.parse(loggedInInfo));
       } catch (err) {
-        console.error("Error parsing task list from localStorage", err);
+        console.error("Error parsing if logged in from sessionStorage", err);
       }
     }
     setIsInitialLoad(false);
@@ -43,9 +59,9 @@ function App() {
 
   useEffect(() => {
     if (!isInitialLoad) {
-      localStorage.setItem("taskList", JSON.stringify(taskList));
+      sessionStorage.setItem("loggedIn", JSON.stringify(isLoggedIn));
     }
-  }, [taskList, isInitialLoad]);
+  }, [isLoggedIn, isInitialLoad]);
 
   return (
     <TaskListContext.Provider value={{ taskList, setTaskList }}>
