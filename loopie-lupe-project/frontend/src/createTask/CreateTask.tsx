@@ -10,7 +10,6 @@ interface CreateTaskProps {
 }
 
 function CreateTask({ isOpen, onClose }: CreateTaskProps) {
-  const { setTaskList } = useContext(TaskListContext);
   const [taskName, setTaskName] = useState("");
   const [taskDetails, setTaskDetails] = useState("");
   const [taskDueDate, setTaskDueDate] = useState("");
