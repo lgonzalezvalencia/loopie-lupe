@@ -11,12 +11,13 @@
 }
 
 .task_details_container {
+  z-index: 1000;
+  position: absolute;
   height: 85vh;
   width: 50vw;
   background: white;
   padding: 20px;
   border-radius: 8px;
-  position: relative;
   overflow: auto;
   scrollbar-width: none;
 }
