@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
-import "./TaskDetails.css";
-import { TaskListContext } from "../App";
-import type { Task } from "../data/types";
+import { useState } from "react";
 import { MainApiUrl } from "../data/endpoints";
+import type { Task } from "../data/types";
+import "./TaskDetails.css";
 
 interface TaskDetailsProp {
   isOpen: boolean;
@@ -12,16 +11,14 @@ interface TaskDetailsProp {
 
 function TaskDetails({ isOpen, onClose, instance }: TaskDetailsProp) {
   if (!isOpen) return null;
-  const { setTaskList } = useContext(TaskListContext);
   const [taskName, setTaskName] = useState(instance.name);
   const [taskDetails, setTaskDetails] = useState(instance.details);
   const [taskDueDate, setTaskDueDate] = useState(instance.dueDate);
   const [taskRepeat, setTaskRepeat] = useState(instance.repeat);
   const [taskStatus, setTaskStatus] = useState(instance.status);
 
-  const handleEditTask = () => {
-    const newTask: Task = {
-      id: instance.id,
+  const handleEditTask = async () => {
+    const newTask = {
       name: taskName,
       imgUrl: instance.imgUrl,
       status: taskStatus,
@@ -30,9 +27,27 @@ function TaskDetails({ isOpen, onClose, instance }: TaskDetailsProp) {
       repeat: taskRepeat as "NEVER" | "DAILY" | "WEEKLY" | "MONTHLY",
     };
 
-    setTaskList((prevTasks) =>
-      prevTasks.map((task) => (task.id === instance.id ? newTask : task))
-    );
+    try {
+      const response = await fetch(MainApiUrl + "/" + instance.id, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+      console.log(response);
+      if (response.ok) {
+        console.log("Resource created successfully!");
+      } else {
+        console.error(`Failed to create resource. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error occurred while creating the resource:", error);
+    }
+
+    // setTaskList((prevTasks) =>
+    //   prevTasks.map((task) => (task.id === instance.id ? newTask : task))
+    // );
 
     onClose();
     window.location.reload();
