@@ -15,7 +15,7 @@
   z-index: 1000;
   position: absolute;
   width: 50vw;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 2rem;
   border-radius: 8px;
   overflow: auto;
@@ -55,6 +55,7 @@
 
 .update-task-save-button {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
@@ -62,7 +63,7 @@
 .save-task-button {
   width: 90px;
   height: 35px;
-  background-color: rgb(74, 195, 236)!important;
+  background-color: rgb(74, 195, 236) !important;
   color: white;
   border-radius: 2.5px;
   margin-bottom: 10px;
@@ -70,7 +71,7 @@
 
 .save-task-button:hover {
   cursor: pointer;
-  background-color: rgb(92, 202, 239)!important;
+  background-color: rgb(92, 202, 239) !important;
   font-weight: bold;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
@@ -81,10 +82,14 @@
   background-color: rgb(204, 24, 24);
   color: white;
   border-radius: 2.5px;
+  border: none;
 }
 
 .delete-task-button:hover {
   cursor: pointer;
   font-weight: bold;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgb(204, 24, 24);
+  scale: 1.03;
+  transition: all 0.2s ease;
 }
