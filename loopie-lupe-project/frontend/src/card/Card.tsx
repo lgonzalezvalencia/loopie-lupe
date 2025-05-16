@@ -30,10 +30,6 @@ function Card({ info }: CardProp) {
 
   const type = defineType(info.name);
 
-  useEffect(() => {
-    setDetailsTask(info);
-  }, []);
-
   const {
     attributes,
     listeners,
@@ -60,7 +56,10 @@ function Card({ info }: CardProp) {
 
   return (
     <div
-      onClick={openDetails}
+      onClick={() => {
+        setDetailsTask(info);
+        openDetails();
+      }}
       ref={(node) => {
         setNodeRef(node);
         cardRef.current = node;
@@ -70,6 +69,7 @@ function Card({ info }: CardProp) {
         opacity: isDragging ? 0.7 : 1,
         boxShadow: isDragging ? "0 4px 8px rgba(0, 0, 0, 0.8)" : "none",
         backgroundColor: type ? typeColors[type] : "#ffffff",
+        zIndex: isDragging ? 1 : "auto",
       }}
       {...listeners}
       {...attributes}

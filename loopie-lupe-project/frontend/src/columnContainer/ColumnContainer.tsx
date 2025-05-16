@@ -11,6 +11,7 @@ import Column from "../column/Column";
 import "./ColumnContainer.css";
 import { TaskListContext } from "../App";
 import type { Task } from "../data/types";
+import { MainApiUrl } from "../data/endpoints";
 
 function ColumnContainer() {
   const { taskList, setTaskList } = useContext(TaskListContext);
@@ -41,7 +42,7 @@ function ColumnContainer() {
     }
   };
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (over) {
@@ -49,23 +50,40 @@ function ColumnContainer() {
       const overStatus = mapStatus(String(over.id));
 
       if (activeIndex !== -1) {
-        const updatedTasks = [...taskList];
-        const [movedTask] = updatedTasks.splice(activeIndex, 1);
+        const movedTask = { ...taskList[activeIndex] };
 
         if (movedTask.status !== overStatus) {
-          movedTask.status = overStatus;
-        }
+          try {
+            const response = await fetch(`${MainApiUrl}/${movedTask.id}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ status: overStatus }),
+            });
 
-        updatedTasks.push(movedTask);
-        setTaskList(updatedTasks);
+            if (response.ok) {
+              const updatedTasks = [...taskList];
+              updatedTasks[activeIndex] = { ...movedTask, status: overStatus };
+              setTaskList(updatedTasks);
+            } else {
+              console.error(
+                `Failed to update status. Status: ${response.status}`
+              );
+            }
+          } catch (error) {
+            console.error("Error occurred while updating the status:", error);
+          }
+        }
       }
     }
   };
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 150,
-        tolerance: 10,
+        delay: 200,
+        tolerance: 30,
       },
     })
   );

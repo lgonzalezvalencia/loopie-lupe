@@ -6,8 +6,8 @@ import type { Task } from "../data/types";
 import { useOutletContext } from "react-router-dom";
 
 type OutletContextType = {
-    setOnNewClick: React.Dispatch<React.SetStateAction<() => void>>;
-}
+  setOnNewClick: React.Dispatch<React.SetStateAction<() => void>>;
+};
 
 interface TaskDetailsDialogContextProp {
   isDetailsOpen: boolean;
