@@ -86,7 +86,7 @@ function ColumnContainer() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 200,
+        delay: 125,
         tolerance: 10,
       },
     })
