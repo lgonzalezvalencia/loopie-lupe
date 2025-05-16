@@ -16,10 +16,10 @@
 .new-button {
   width: 90px;
   height: 35px;
-  background-color: rgb(24, 141, 204);
-  color: white;
-  border: none;
-  border-radius: 2.5px;
+  background-color: #ffffff50;
+  color: #F7797D;;
+  border: 1px solid #FFFFFF;
+  border-radius: 4px;
 }
 .new-button:hover {
   cursor: pointer;
@@ -28,10 +28,10 @@
 .summary-button {
   width: 90px;
   height: 35px;
-  background-color: #FFFFFF;
-  color: rgb(24, 141, 204);
-  border: 2px solid rgb(24, 141, 204);
-  border-radius: 2.5px;
+  background-color: #ffffff50;
+  color: #F7797D;
+  border: 1px solid #FFFFFF;
+  border-radius: 4%;
   margin-right: 10px;
 }
 .summary-button:hover {

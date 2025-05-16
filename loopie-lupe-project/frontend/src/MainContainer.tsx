@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./header/Header";
 import { Outlet } from "react-router-dom";
+import "./MainContainer.css";
 
 function MainContainer() {
     const [onNewClick, setOnNewClick] = useState<() => void>(() => () => {});

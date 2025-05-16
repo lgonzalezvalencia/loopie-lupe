@@ -9,14 +9,15 @@
   justify-content: center;
   align-items: center;
 }
+
 .create-task-container {
-  height: 85vh;
   width: 50vw;
-  background: white;
+  background-color: #FFFFFF;
   padding: 2rem;
   border-radius: 8px;
   position: relative;
 }
+
 .dialog-close-button {
   position: absolute;
   top: 10px;
@@ -26,37 +27,45 @@
   font-size: 20px;
   cursor: pointer;
 }
+
 .create-task-title,
 .create-task-details,
-.create-task-date {
+.create-task-date, 
+.create-task-repeat {
   padding-top: 10px;
   padding-bottom: 5px;
+  font-size: 14px;
+  font-weight: 200;
+  text-align: left;
+}
+
+.create-task-input-select:hover {
+  cursor: pointer;
 }
 
 .create-task-input {
-  margin-inline: 10px;
-  width: 90%;
+  width: 100%;
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-.create-task-input-select:hover {
-  cursor: pointer;
-}
+
 .create-task-save-button {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .save-task-button {
   width: 90px;
   height: 35px;
-  background-color: rgb(24, 141, 204);
+  background-color: rgb(74, 195, 236)!important;
   color: white;
   border-radius: 2.5px;
   border: solid 1px;
 }
+
 .save-task-button:hover {
   cursor: pointer;
 }
