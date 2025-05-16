@@ -50,9 +50,11 @@ function ColumnContainer() {
       const overStatus = mapStatus(String(over.id));
 
       if (activeIndex !== -1) {
-        const movedTask = { ...taskList[activeIndex] };
+        const updatedTasks = [...taskList];
+        const [movedTask] = updatedTasks.splice(activeIndex, 1);
 
         if (movedTask.status !== overStatus) {
+          movedTask.status = overStatus;
           try {
             const response = await fetch(`${MainApiUrl}/${movedTask.id}`, {
               method: "PATCH",
@@ -74,6 +76,8 @@ function ColumnContainer() {
           } catch (error) {
             console.error("Error occurred while updating the status:", error);
           }
+          updatedTasks.push(movedTask);
+          setTaskList(updatedTasks);
         }
       }
     }
@@ -83,7 +87,7 @@ function ColumnContainer() {
     useSensor(PointerSensor, {
       activationConstraint: {
         delay: 200,
-        tolerance: 30,
+        tolerance: 10,
       },
     })
   );
