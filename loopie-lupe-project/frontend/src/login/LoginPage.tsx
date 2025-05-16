@@ -70,7 +70,7 @@ const LoginForm = ({ setIsLoggedIn }: LoginPageProps) => {
           ) : null}
         </div>
         <button type="submit" className="submit-login-button">
-          Log-in
+          Log In
         </button>
       </form>
     </>
@@ -81,7 +81,7 @@ function LoginPage({ setIsLoggedIn }: LoginPageProps) {
   return (
     <>
       <div className="login-container">
-        <h1 className="login-container__title">Mindflow</h1>
+        <h1 className="login-container__title">MindFlow</h1>
         <LoginForm setIsLoggedIn={setIsLoggedIn} />
       </div>
     </>

@@ -68,4 +68,7 @@
 
 .save-task-button:hover {
   cursor: pointer;
+  background-color: rgb(92, 202, 239)!important;
+  font-weight: bold;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
