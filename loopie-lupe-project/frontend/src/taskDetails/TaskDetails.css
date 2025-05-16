@@ -15,9 +15,9 @@
   z-index: 1000;
   position: absolute;
   width: 50vw;
+  background-color: #FFFFFF;
   padding: 2rem;
-  background-color: #f3f3f380;
-  border-radius: 20px;
+  border-radius: 8px;
   overflow: auto;
   scrollbar-width: none;
 }
@@ -35,6 +35,9 @@
 .update-task {
   padding-top: 10px;
   padding-bottom: 5px;
+  font-size: 14px;
+  font-weight: 200;
+  text-align: left;
 }
 
 .update-task-input {
@@ -62,7 +65,7 @@
   background-color: rgb(74, 195, 236)!important;
   color: white;
   border-radius: 2.5px;
-  border: solid 1px;
+  margin-bottom: 10px;
 }
 
 .save-task-button:hover {
@@ -78,7 +81,6 @@
   background-color: rgb(204, 24, 24);
   color: white;
   border-radius: 2.5px;
-  border: solid 1px;
 }
 
 .delete-task-button:hover {
